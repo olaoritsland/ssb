@@ -6,7 +6,7 @@
 #' @return
 #' @import dplyr
 #' @importFrom janitor clean_names
-#' @importFrom tidyr pivot_wider pivot_longer
+#' @importFrom tidyr pivot_wider pivot_longer .
 #' @export
 #'
 #' @examples
