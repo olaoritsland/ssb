@@ -3,15 +3,9 @@
 devtools::load_all()
 
 
-transactions <- c("- Personal consumption",
-                  "- Interest expenses",
-                  "+ Interest income",
-                  "+ Property income",
-                  "- Consumption",
+transactions <- c("- Consumption",
                   "= DISPOSABLE INCOME",
-                  "= Adjusted disposable income",
-                  "= SAVING",
-                  "MEMO: Savings ratio")
+                  "= SAVING") 
 
 
 # hent data
@@ -29,11 +23,13 @@ df_prepped <- df %>%
   tidyr::pivot_wider(values_from = value,
                      names_from = transaction) %>% 
   janitor::clean_names() %>% 
-  select(-c(sector, contents)) 
+  select(-c(sector, contents)) %>% 
+  mutate(sparerate = saving/disposable_income)
+
 
 # plot data
 p <- df_prepped %>% 
-  select(date, consumption, personal_consumption, saving, adjusted_disposable_income) %>% 
+  # select(-sparerate) %>% 
   tidyr::pivot_longer(-date) %>% 
   ggplot(aes(x = date, y = value, color = name)) +
   geom_line()
